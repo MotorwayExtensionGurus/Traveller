@@ -1,0 +1,29 @@
+{
+  "name": "meg-bot",
+  "version": "0.0.1",
+  "description": "Discord Bot for Motorway Extension Gurus",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ToxicAven/MEG-Bot.git"
+  },
+  "keywords": [
+    "discord-bot"
+  ],
+  "author": "ToxicAven",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/ToxicAven/MEG-Bot/issues"
+  },
+  "homepage": "https://github.com/ToxicAven/MEG-Bot#readme",
+  "dependencies": {
+    "cross-fetch": "^3.0.6",
+    "discord.js": "^12.1.1",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1",
+    "querystring": "^0.2.0"
+  }
+}
