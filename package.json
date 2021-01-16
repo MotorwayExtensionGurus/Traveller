@@ -4,7 +4,8 @@
   "description": "Discord Bot for Motorway Extension Gurus",
   "main": "index.js",
   "scripts": {
-    "test": "node ."
+    "start": "node index.js",
+    "gendb": "node dbInit.js --force"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,8 @@
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
-    "querystring": "^0.2.0"
+    "querystring": "^0.2.0",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.1"
   }
 }
