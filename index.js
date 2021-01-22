@@ -10,21 +10,33 @@ const bot = new Discord.Client();
 const prefix = '?';
 var commandsList = [
     prefix + "netherrack [digger] - Check a diggers netherrack count!",
-    prefix + "officialtop - Prints an offically formatted netherrack count!",
+    prefix + "officialtop - Prints an offically formatted netherrack leaderboard!",
     prefix + "setnetherrack - Set your own netherrack count!",
     prefix + "fixcount - If you somehow fuck up the counter, reset it to zero!",
-    prefix + "top - Print the digger netherrack count!",   
+    prefix + "top - Print the digger netherrack leaderboard!",
+    prefix + "version - Display the bot version!",   
 ]
 
 var d = new Date();
 
 var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const botversion = '0.8.0';
+const botversion = '1.0.0';
 
 var trueDate = (months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear())
 console.log(trueDate);
 //Imports
 var version = require('./cmds/version.js');
+
+function removeSymbol(symbol, str){
+    var newString = "";
+    for(var i = 0; i < str.length; i++) {
+        var char = str.charAt(i);
+        if(char != symbol){
+            newString = newString + char;
+        }
+    }
+    return newString;
+}
 
 function commafy( num ) {
     var str = num.toString().split('.');
@@ -64,7 +76,7 @@ Reflect.defineProperty(currency, 'getBalance', {
 bot.on("ready", async () => {
     const storedBalances = await Users.findAll();
     storedBalances.forEach(b => currency.set(b.user_id, b));
-    console.log(`\n------------\nMotorway Bot v${botversion}\nRunning as ${bot.user.tag}\nMade by ToxicAven#3678\nLicensed under GNU GPL-3.0\n------------\n`)
+    console.log(`\n------------\nTraveller v${botversion}\nRunning as ${bot.user.tag}\nMade by ToxicAven#3678\nLicensed under GNU GPL-3.0\n------------\n`)
 });
 
 bot.on('message', async message => {
@@ -77,11 +89,14 @@ bot.on('message', async message => {
     //Version Command
     if (command === 'version') {
         console.log(`Version Command Issued`)
-        version.custom(botversion, message);
+        version.custom(botversion, message, Discord);
     }
     else if (command === 'netherrack') {
         const target = message.mentions.users.first() || message.author;
         var counter = currency.getBalance(target.id);
+        if (counter == 0) {
+            return message.channel.send ("This user has no count Set!");
+        }
         var commafied = commafy(counter);
         return message.channel.send(`${target} has mined ${commafied} netherrack!`);
     }
@@ -93,7 +108,7 @@ bot.on('message', async message => {
                 message.channel.send(
                     currency.sort((a, b) => b.balance - a.balance)
                         .filter(user => bot.users.cache.has(user.user_id))
-                        .first(100)
+                        .first(20)
                         .map((user, position) => `(${position + 1}) ${(bot.users.cache.get(user.user_id).tag)}: ${commafy(user.balance)} netherrack`)
                         .join('\n'),
                     { code: true }
@@ -110,8 +125,9 @@ bot.on('message', async message => {
         if(message.member.roles.cache.some(r=>["DIGGER"].includes(r.name)) ) {
         const target = message.author;
         var zeroout = -currency.getBalance(target.id)
+        var anticomma = parseFloat(args.toString().replace(/,/g, ''))
         currency.add(message.author.id, zeroout);
-        currency.add(message.author.id, args);
+        currency.add(message.author.id, anticomma);
         return message.channel.send(`Set ${target}'s new netherrack Count to ${commafy(currency.getBalance(target.id))} netherrack!`);
         }
         else {
@@ -132,7 +148,7 @@ bot.on('message', async message => {
         return message.channel.send(
             currency.sort((a, b) => b.balance - a.balance)
                 .filter(user => bot.users.cache.has(user.user_id))
-                .first(100)
+                .first(20)
                 .map((user, position) => `(${position + 1}) ${(bot.users.cache.get(user.user_id).tag)}: ${commafy(user.balance)} netherrack`)
                 .join('\n'),
             { code: true }
@@ -142,7 +158,7 @@ bot.on('message', async message => {
 
     else if (command === 'help'){
                 const embed = new Discord.MessageEmbed()
-                    .setTitle("MEG counter help")
+                    .setTitle("Traveller Help")
                     .setDescription(commandsList)
                     .setColor('#ff0000');
                     message.channel.send(embed);
@@ -151,7 +167,7 @@ bot.on('message', async message => {
 
 
 bot.on("ready", async() => {
-    bot.user.setActivity("the highways", {type: 'WATCHING'});
+    bot.user.setActivity("with Pigmen", {type: 'PLAYING'});
 });
 
 bot.login(process.env.TOKEN);
