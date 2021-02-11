@@ -1,5 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-	return sequelize.define('currency_shop', {
+module.exports = (sequelize, DataTypes) =>
+	sequelize.define('currency_shop', {
 		name: {
 			type: DataTypes.STRING,
 			unique: true,
@@ -11,4 +11,3 @@ module.exports = (sequelize, DataTypes) => {
 	}, {
 		timestamps: false,
 	});
-};
