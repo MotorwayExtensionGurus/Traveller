@@ -1,6 +1,6 @@
 {
   "name": "meg-bot",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Discord Bot for Motorway Extension Gurus",
   "main": "index.js",
   "scripts": {
@@ -9,21 +9,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ToxicAven/MEG-Bot.git"
+    "url": "git+https://github.com/MotorwayExtensionGurus/Traveller.git"
   },
   "keywords": [
     "discord-bot"
   ],
-  "author": "ToxicAven",
+  "author": "ToxicAven & tycrek",
   "license": "GPL-3.0-only",
   "bugs": {
-    "url": "https://github.com/ToxicAven/MEG-Bot/issues"
+    "url": "https://github.com/MotorwayExtensionGurus/Traveller/issues"
   },
-  "homepage": "https://github.com/ToxicAven/MEG-Bot#readme",
+  "homepage": "https://github.com/MotorwayExtensionGurus/Traveller#readme",
   "dependencies": {
     "cross-fetch": "^3.0.6",
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
+    "fs-extra": "^9.1.0",
     "node-fetch": "^2.6.1",
     "querystring": "^0.2.0",
     "sequelize": "^6.3.5",

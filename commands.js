@@ -1,6 +1,8 @@
 const MessageEmbed = require('discord.js').MessageEmbed;
+const fs = require('fs-extra');
+const path = require('path');
 const botversion = require('./package.json').version;
-const { getSortedList, trueDate, currency, commafy } = require('./utils');
+const { getSortedList, trueDate, commafy } = require('./utils');
 const MEG = require('./meg.json');
 
 module.exports = {
@@ -22,27 +24,56 @@ module.exports = {
 	},
 	netherrack: (msg) => {
 		let target = msg.mentions.users.first() || msg.author;
-		let counter = currency.getBalance(target.id);
-		return msg.channel.send(counter == 0 ? 'This user hasn\'t mined anything, what a pleb!' : `${target} has mined \`${commafy(counter)}\` netherrack`, { 'allowedMentions': { 'users': [] } });
+		let counter = require('./scores.json').players.find((player) => player.id == target.id);
+		return msg.channel.send(!counter || counter == 0 ? 'This user hasn\'t mined anything, what a pleb!' : `${target} has mined \`${commafy(counter.count)}\` netherrack using **${counter.accounts}** accounts`, { 'allowedMentions': { 'users': [] } });
 	},
 	setnetherrack: async (msg, args) => {
 		let reply;
 		if (msg.member.roles.cache.some((role) => ['DIGGER'].includes(role.name))) {
-			if (!args || !args.toString().match(/\b([0-9]+)/)) reply = 'Value must be numbers only!';
+			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 0) reply = 'Value must be 0 or higher!';
 			else {
-				await currency.add(msg.author.id, parseFloat(args.toString().replace(/,/g, '')));
-				reply = `Set ${msg.author}'s netherrack count to \`${commafy(currency.getBalance(msg.author.id))}\``;
+				let scores = require('./scores.json');
+				let author = msg.author.id;
+				let player = scores.players.find((player) => player.id == author);
+				let count = parseInt(args.toString().replace(/,/g, ''));
+
+				if (player) player.count = count;
+				else scores.players.push({
+					id: author,
+					name: msg.author.username,
+					count,
+					accounts: 1
+				});
+
+				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
+				reply = `Set ${msg.author}'s netherrack count to \`${commafy(count)}\``;
 			}
 		} else reply = 'This command can only be ran by Diggers!';
 		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
 	},
-	fixcount: (msg) => {
+	setaccounts: async (msg, args) => {
 		let reply;
 		if (msg.member.roles.cache.some((role) => ['DIGGER'].includes(role.name))) {
-			currency.add(msg.author.id, -currency.getBalance(msg.author.id));
-			reply = 'Fixed Netherrack count';
+			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 1) reply = 'Value must be 1 or higher!';
+			else {
+				let scores = require('./scores.json');
+				let author = msg.author.id;
+				let player = scores.players.find((player) => player.id == author);
+				let count = parseInt(args.toString().replace(/,/g, ''));
+
+				if (player) player.accounts = count;
+				else scores.players.push({
+					id: author,
+					name: msg.author.username,
+					count: 0,
+					accounts: count
+				});
+
+				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
+				reply = `Set ${msg.author}'s accounts to \`${commafy(count)}\``;
+			}
 		} else reply = 'This command can only be ran by Diggers!';
-		msg.channel.send(reply);
+		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
 	}
 };
 
@@ -54,12 +85,6 @@ function buildTopEmbed(official = false) {
 		.setDescription(getSortedList())
 }
 
-const medals = {
-	first: ':first_place:',
-	second: ':second_place:',
-	third: ':third_place:'
-}
-
 const commandsList = [
 	`\`${MEG.prefix}help\` - Displays this help page`,
 	`\`${MEG.prefix}version\` - Display the bot version`,
@@ -67,5 +92,5 @@ const commandsList = [
 	`\`${MEG.prefix}officialtop\` - Prints an offically formatted netherrack leaderboard`,
 	`\`${MEG.prefix}netherrack [digger]\` - Check a diggers netherrack count`,
 	`\`${MEG.prefix}setnetherrack\` - Set your own netherrack count`,
-	`\`${MEG.prefix}fixcount\` - If you somehow fuck up the counter, reset it to zero`,
+	`\`${MEG.prefix}setaccounts\` - Set how many accounts contribute to your count`,
 ];
