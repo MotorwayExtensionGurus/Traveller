@@ -17,7 +17,6 @@ const bot = new Discord.Client();
 
 // Runs when bot signs in successfully
 bot.on('ready', async () => {
-	utils.initCurrency();
 	console.log(`\n${utils.divider}\nTraveller v${botversion}\nRunning as: ${bot.user.tag}\nMade by ToxicAven#3678\nRewrite by Tycrek#0001\nLicensed under GNU GPL-3.0\n${utils.divider}\n`)
 	bot.user.setActivity('with Pigmen', { type: 'PLAYING' });
 });
