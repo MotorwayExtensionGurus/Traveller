@@ -37,7 +37,8 @@ module.exports = {
 				let player = scores.players.find((player) => player.id == author);
 				let count = parseInt(args.toString().replace(/,/g, ''));
 
-				if (player) player.count = count;
+				if (count.toString() == NaN.toString()) reply = "fuck you";
+				else if (player) player.count = count;
 				else scores.players.push({
 					id: author,
 					name: msg.author.username,
@@ -61,7 +62,8 @@ module.exports = {
 				let player = scores.players.find((player) => player.id == author);
 				let count = parseInt(args.toString().replace(/,/g, ''));
 
-				if (player) player.accounts = count;
+				if (count.toString() == NaN.toString()) reply = "fuck you";
+				else if (player) player.accounts = count;
 				else scores.players.push({
 					id: author,
 					name: msg.author.username,
