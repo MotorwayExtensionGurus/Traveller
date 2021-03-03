@@ -47,7 +47,7 @@ module.exports = {
 				});
 
 				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
-				reply = `Set ${msg.author}'s netherrack count to \`${commafy(count)}\``;
+				if (count.toString() != NaN.toString()) reply = `Set ${msg.author}'s netherrack count to \`${commafy(count)}\``;
 			}
 		} else reply = 'This command can only be ran by Diggers!';
 		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
@@ -72,7 +72,7 @@ module.exports = {
 				});
 
 				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
-				reply = `Set ${msg.author}'s accounts to \`${commafy(count)}\``;
+				if (count.toString() != NaN.toString()) reply = `Set ${msg.author}'s accounts to \`${commafy(count)}\``;
 			}
 		} else reply = 'This command can only be ran by Diggers!';
 		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
