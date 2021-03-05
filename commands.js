@@ -5,6 +5,8 @@ const botversion = require('./package.json').version;
 const { getSortedList, trueDate, commafy } = require('./utils');
 const MEG = require('./meg.json');
 
+const hardcode_whitelist = ['295974862646804480'];
+
 module.exports = {
 	version: (msg) =>
 		msg.channel.send(new MessageEmbed()
@@ -29,7 +31,7 @@ module.exports = {
 	},
 	setnetherrack: async (msg, args) => {
 		let reply;
-		if (msg.member.roles.cache.some((role) => ['DIGGER'].includes(role.name))) {
+		if (verifyUser(msg)) {
 			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 0) reply = 'Value must be 0 or higher!';
 			else {
 				let scores = require('./scores.json');
@@ -54,7 +56,7 @@ module.exports = {
 	},
 	setaccounts: async (msg, args) => {
 		let reply;
-		if (msg.member.roles.cache.some((role) => ['DIGGER'].includes(role.name))) {
+		if (verifyUser(msg)) {
 			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 1) reply = 'Value must be 1 or higher!';
 			else {
 				let scores = require('./scores.json');
@@ -85,6 +87,10 @@ function buildTopEmbed(official = false) {
 		.setTitle(`Leaderboard${official ? '' : ' (unofficial)'}`)
 		.setThumbnail(MEG.logo)
 		.setDescription(getSortedList())
+}
+
+function verifyUser(msg) {
+	return msg.member.roles.cache.some((role) => role.name.includes('DIGGER') || role.name.includes('PROSPECTIVE')) || hardcode_whitelist.includes(msg.author.id);
 }
 
 const commandsList = [
