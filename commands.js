@@ -95,7 +95,7 @@ module.exports = {
 					id: author,
 					name: newName,
 					count: 0,
-					accounts: count
+					accounts: 1
 				});
 
 				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
