@@ -29,7 +29,7 @@ module.exports = {
 		let counter = require('./scores.json').players.find((player) => player.id == target.id);
 		return msg.channel.send(!counter || counter == 0 ? 'This user hasn\'t mined anything, what a pleb!' : `${target} has mined \`${commafy(counter.count)}\` netherrack using **${counter.accounts}** accounts`, { 'allowedMentions': { 'users': [] } });
 	},
-	setnetherrack: async (msg, args) => {
+	setnetherrack: (msg, args) => {
 		let reply;
 		if (verifyUser(msg)) {
 			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 0) reply = 'Value must be 0 or higher!';
@@ -54,7 +54,7 @@ module.exports = {
 		} else reply = 'This command can only be ran by Diggers!';
 		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
 	},
-	setaccounts: async (msg, args) => {
+	setaccounts: (msg, args) => {
 		let reply;
 		if (verifyUser(msg)) {
 			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 1) reply = 'Value must be 1 or higher!';
