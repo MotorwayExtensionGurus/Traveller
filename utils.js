@@ -1,7 +1,8 @@
 module.exports = {
 	getSortedList: () => {
 		let sorted = require('./scores.json').players.sort((a, b) => parseInt(b.count) - parseInt(a.count));
-		return sorted.map((player) => `**${getShow(sorted, player)}:** <@${player.id}>: \`${commafy(player.count)} {${player.accounts}}\``).join('\n')
+		return sorted.map((player) => `**${getShow(sorted, player)}:** ${player.name}: \`${commafy(player.count)} {${player.accounts}}\``).join('\n');
+		//return sorted.map((player) => `**${getShow(sorted, player)}:** <@${player.id}>: \`${commafy(player.count)} {${player.accounts}}\``).join('\n');
 	},
 	trueDate: () => {
 		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
