@@ -78,6 +78,31 @@ module.exports = {
 			}
 		} else reply = 'This command can only be ran by Diggers!';
 		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
+	},
+	nickname: (msg, args) => {
+		let noArgs = !args;
+		let reply;
+		if (verifyUser(msg)) {
+			if (args.length > 0 && (args.toString().replace(/\W/g, '').length < 3 || args.toString().replace(/\W/g, '').length > 16)) reply = 'Must be between 3 & 16 characters (inclusive)';
+			else {
+				let scores = require('./scores.json');
+				let author = msg.author.id;
+				let player = scores.players.find((player) => player.id == author);
+				let newName = args.length < 1 ? msg.author.username : args.toString().replace(/\W/g, '');
+
+				if (player) player.name = newName;
+				else scores.players.push({
+					id: author,
+					name: newName,
+					count: 0,
+					accounts: count
+				});
+
+				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
+				reply = `Set ${msg.author}'s nickname to \`${newName}\``;
+			}
+		} else reply = 'This command can only be ran by Diggers!';
+		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
 	}
 };
 
