@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/MotorwayExtensionGurus/Traveller#readme",
   "dependencies": {
+    "@octokit/core": "^3.4.0",
     "cross-fetch": "^3.0.6",
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",

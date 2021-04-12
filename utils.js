@@ -10,7 +10,8 @@ module.exports = {
 		return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
 	},
 	commafy,
-	divider: '--------------------------------'
+	divider: '--------------------------------',
+	formatBytes
 }
 
 function commafy(num) {
@@ -24,6 +25,13 @@ function getShow(sorted, player) {
 	let position = sorted.indexOf(player) + 1;
 	let show = position == 1 ? medals.first : position == 2 ? medals.second : position == 3 ? medals.third : position < 10 ? `${nbsp}${nbspss}${position}` : position == 11 ? `${nbsp}${position}` : `${nbsps}${position}`;
 	return show;
+}
+
+function formatBytes(bytes) {
+	if (bytes == 0) return '0 bytes';
+	let sizes = ['bytes', 'KB', 'MB', 'GB', 'TB']
+	let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
+	return (i == 0 ? [bytes, sizes[i]] : [(bytes / Math.pow(1024, i)).toFixed(1), sizes[i]]).join(' ');
 }
 
 const nbsp = ' ';
