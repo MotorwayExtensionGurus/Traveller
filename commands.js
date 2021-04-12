@@ -107,22 +107,47 @@ module.exports = {
 		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
 	},
 	hwt: async (msg, args) => {
-		octokit.request('GET /repos/{owner}/{repo}/releases', { owner: 'avanatiker', repo: 'client' })
-			.then(({ data }) => data[0])
-			.then((release) => {
-				let { name, html_url, assets, author, published_at, body } = release;
-				let { browser_download_url, size, download_count } = assets[0];
-				body = ('**Changelog:**').concat(body.split('Changelog:')[1].split('\r\n\r\n')[0]).replace(/\[x\] /gim, '').replace(/\n-/gim, '\n•');
+		if (args.length == 0)
+			octokit.request('GET /repos/{owner}/{repo}/releases', { owner: 'avanatiker', repo: 'client' })
+				.then(({ data }) => data[0])
+				.then((release) => {
+					let { name, html_url, assets, author, published_at, body } = release;
+					let { browser_download_url, size, download_count } = assets[0];
+					body = ('**Changelog:**').concat(body.split('Changelog:')[1].split('\r\n\r\n')[0]).replace(/\[x\] /gim, '').replace(/\n-/gim, '\n•');
 
-				msg.channel.send(new MessageEmbed()
-					.setTitle(name)
-					.setURL(html_url)
-					.setThumbnail('https://jmoore.dev/files/HWT-icon.png')
-					.setColor('#987ff3')
-					.setAuthor('Made by Constructor', author.avatar_url, author.html_url)
-					.setDescription(`${body}\n\n**Click [here](${browser_download_url}) to download**\nSize: **\`${formatBytes(size)}\`**\nDownloads: **\`${download_count}\`**\n\Developer: <@295974862646804480>`)
-					.setTimestamp(published_at));
-			}).catch(console.error);
+					msg.channel.send(new MessageEmbed()
+						.setTitle(name)
+						.setURL(html_url)
+						.setThumbnail('https://jmoore.dev/files/HWT-icon.png')
+						.setColor('#987ff3')
+						.setAuthor('Made by Constructor', author.avatar_url, author.html_url)
+						.setDescription(`${body}\n\n**Click [here](${browser_download_url}) to download**\nSize: **\`${formatBytes(size)}\`**\nDownloads: **\`${download_count}\`**\n\Developer: <@295974862646804480>`)
+						.setTimestamp(published_at));
+				}).catch(console.error);
+		else {
+			let runNumber, HtmlUrl;
+			octokit.request('GET /repos/{owner}/{repo}/actions/runs', { owner: 'avanatiker', repo: 'client' })
+				.then(({ data }) => {
+					let run = data.workflow_runs[0];
+					runNumber = run.run_number;
+					HtmlUrl = run.html_url;
+					return run.id;
+				})
+				.then((run_id) => octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts', { owner: 'avanatiker', repo: 'client', run_id }))
+				.then(({ data }) => {
+					let { id, size_in_bytes, created_at } = data.artifacts[0];
+
+					msg.channel.send(new MessageEmbed()
+						.setTitle(`HWT dev build #${runNumber}`)
+						.setURL(HtmlUrl)
+						.setThumbnail('https://jmoore.dev/files/HWT-icon.png')
+						.setColor('#987ff3')
+						.setDescription(`Size: **\`${formatBytes(size_in_bytes)}\`**\n\n**Disclaimer:** these builds are **experimental** and **untested**. Use with caution. You must be signed in to GitHub to access the download.`)
+						.setFooter(`Artifact ID: ${id}`)
+						.setTimestamp(created_at));
+				})
+				.catch(console.error);
+		}
 	}
 };
 
