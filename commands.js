@@ -1,8 +1,10 @@
 const MessageEmbed = require('discord.js').MessageEmbed;
 const fs = require('fs-extra');
 const path = require('path');
+const Octokit = require("@octokit/core").Octokit;
+const octokit = new Octokit();
 const botversion = require('./package.json').version;
-const { getSortedList, trueDate, commafy } = require('./utils');
+const { getSortedList, trueDate, commafy, formatBytes } = require('./utils');
 const MEG = require('./meg.json');
 
 const hardcode_whitelist = ['295974862646804480'];
@@ -103,6 +105,24 @@ module.exports = {
 			}
 		} else reply = 'This command can only be ran by Diggers!';
 		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
+	},
+	hwt: async (msg, args) => {
+		octokit.request('GET /repos/{owner}/{repo}/releases', { owner: 'avanatiker', repo: 'client' })
+			.then(({ data }) => data[0])
+			.then((release) => {
+				let { name, html_url, assets, author, published_at, body } = release;
+				let { browser_download_url, size, download_count } = assets[0];
+				body = ('**Changelog:**').concat(body.split('Changelog:')[1].split('\r\n\r\n')[0]).replace(/\[x\] /gim, '').replace(/\n-/gim, '\n•');
+
+				msg.channel.send(new MessageEmbed()
+					.setTitle(name)
+					.setURL(html_url)
+					.setThumbnail('https://jmoore.dev/files/HWT-icon.png')
+					.setColor('#987ff3')
+					.setAuthor('Made by Constructor', author.avatar_url, author.html_url)
+					.setDescription(`${body}\n\n**Click [here](${browser_download_url}) to download**\nSize: **\`${formatBytes(size)}\`**\nDownloads: **\`${download_count}\`**\n\Developer: <@295974862646804480>`)
+					.setTimestamp(published_at));
+			}).catch(console.error);
 	}
 };
 
@@ -126,4 +146,6 @@ const commandsList = [
 	`\`${MEG.prefix}netherrack [digger]\` - Check a diggers netherrack count`,
 	`\`${MEG.prefix}setnetherrack\` - Set your own netherrack count`,
 	`\`${MEG.prefix}setaccounts\` - Set how many accounts contribute to your count`,
+	`\`${MEG.prefix}nickname\` - Set your leaderboard nickname`,
+	`\`${MEG.prefix}hwt\ - Grab info for the latest release of Highway Tools by <@295974862646804480>`
 ];
