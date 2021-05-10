@@ -3,43 +3,85 @@
 		{
 			"id": "435284500831010839",
 			"name": "Justen",
-			"count": 100659800,
-			"accounts": 1
+			"count": 256241100,
+			"accounts": 3
 		},
 		{
 			"id": "350744245575090179",
 			"name": "harritaco",
-			"count": 68000000,
-			"accounts": 1
-		},
-		{
-			"id": "424870550955884545",
-			"name": "GATECRASH",
-			"count": 60500000,
-			"accounts": 1
+			"count": 135934000,
+			"accounts": 2
 		},
 		{
 			"id": "205064598594781185",
 			"name": "Mr. Potato",
-			"count": 25601657,
+			"count": 100199934,
+			"accounts": 2
+		},
+		{
+			"id": "839393648549953556",
+			"name": "Citadel",
+			"count": 70000000,
+			"accounts": 2
+		},
+		{
+			"id": "435284500831010839",
+			"name": "JustenIsThaGay",
+			"count": 65000000,
 			"accounts": 1
 		},
 		{
-			"id": "611925972937211920",
-			"name": "KevinKC2014",
-			"count": 19352381,
-			"accounts": 1
+			"id": "654755624009072650",
+			"name": "Jenixblue",
+			"count": 52373321,
+			"accounts": 2
 		},
 		{
 			"id": "584363189890711562",
-			"name": "Aven",
-			"count": 16524458,
+			"name": "GremlinTrolol",
+			"count": 42771103,
 			"accounts": 1
 		},
 		{
 			"id": "329843671769808897",
 			"name": "Yesnik",
-			"count": 15000374,
+			"count": 41397846,
+			"accounts": 1
+		},
+		{
+			"id": "324679696182673408",
+			"name": "tycrek",
+			"count": 31000135,
+			"accounts": 1
+		},
+		{
+			"id": "841134608773939210",
+			"name": "Fiofri",
+			"count": 28599315,
+			"accounts": 1
+		},
+		{
+			"id": "827213881318703104",
+			"name": "KevinKC2014",
+			"count": 19352381,
+			"accounts": 1
+		},
+		{
+			"id": "198285420688048131",
+			"name": "Queen Kazma",
+			"count": 17533866,
+			"accounts": 1
+		},
+		{
+			"id": "841065878211657728",
+			"name": "FreedomHolland",
+			"count": 16071537,
+			"accounts": 1
+		},
+		{
+			"id": "497639332371496960",
+			"name": "Jude",
+			"count": 12690000,
 			"accounts": 1
 		},
 		{
@@ -49,57 +91,63 @@
 			"accounts": 1
 		},
 		{
-			"id": "654755624009072650",
-			"name": "Jenixblue",
-			"count": 9239992,
+			"id": "841084207891611658",
+			"name": "jumboman32",
+			"count": 10000000,
 			"accounts": 1
 		},
 		{
-			"id": "324679696182673408",
-			"name": "tycrek",
-			"count": 8826054,
+			"id": "428418366831591424",
+			"name": "Tullybob",
+			"count": 7000000,
 			"accounts": 1
 		},
 		{
-			"id": "497639332371496960",
-			"name": "juderenee",
-			"count": 4446000,
+			"id": "219717388910723075",
+			"name": "reitano12",
+			"count": 4900000,
 			"accounts": 1
 		},
 		{
-			"id": "198285420688048131",
-			"name": "Queen Kazma",
-			"count": 4655384,
-			"accounts": 1
-		},
-		{
-			"id": "328201407914180609",
-			"name": "FreedomHolland",
-			"count": 3704864,
-			"accounts": 1
-		},
-		{
-			"id": "183201697068351489",
-			"name": "Paragon Deku",
-			"count": 3500000,
-			"accounts": 1
-		},
-		{
-			"id": "414608175531163660",
-			"name": "Parzi",
-			"count": 2700000,
-			"accounts": 1
-		},
-		{
-			"id": "761767420263268362",
-			"name": "Enderlover",
-			"count": 21,
-			"accounts": 1
-		},
-		{
-			"id": "708624395257643089",
+			"id": "838346630180634634",
 			"name": "CorruptedSeal",
-			"count": 1,
+			"count": 3825121,
+			"accounts": 1
+		},
+		{
+			"id": "840904951101259786",
+			"name": "EnigmA_008",
+			"count": 3261316,
+			"accounts": 1
+		},
+		{
+			"id": "841143078520619039",
+			"name": "Plentlover",
+			"count": 2179132,
+			"accounts": 1
+		},
+		{
+			"id": "523538961973510145",
+			"name": "howlhatesdemons",
+			"count": 2066288,
+			"accounts": 1
+		},
+		{
+			"id": "295974862646804480",
+			"name": "Constructor",
+			"count": 2037569,
+			"accounts": 1
+		},
+		{
+			"id": "841114303285428254",
+			"name": "Smokescreen",
+			"count": 1901831,
+			"accounts": 1
+		},
+		{
+			"id": "840963320697585695",
+			"name": "frencheagle",
+			"count": 1000000,
 			"accounts": 1
 		}
 	]
