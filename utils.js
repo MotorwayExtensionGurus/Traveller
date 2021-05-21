@@ -4,6 +4,11 @@ module.exports = {
 		return sorted.map((player) => `**${getShow(sorted, player)}:** ${player.name}: \`${commafy(player.count)} {${player.accounts}}\``).join('\n');
 		//return sorted.map((player) => `**${getShow(sorted, player)}:** <@${player.id}>: \`${commafy(player.count)} {${player.accounts}}\``).join('\n');
 	},
+	getTotal: () => {
+		let c = a = 0;
+		require('./scores.json').players.forEach(({ count, accounts }) => (c += count, a += accounts))
+		return ({ count: commafy(c), accounts: commafy(a) });
+	},
 	trueDate: () => {
 		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		let d = new Date();

@@ -4,7 +4,7 @@ const path = require('path');
 const Octokit = require("@octokit/core").Octokit;
 const octokit = new Octokit();
 const botversion = require('./package.json').version;
-const { getSortedList, trueDate, commafy, formatBytes } = require('./utils');
+const { getSortedList, getTotal, trueDate, commafy, formatBytes } = require('./utils');
 const MEG = require('./meg.json');
 
 const hardcode_whitelist = ['295974862646804480'];
@@ -155,6 +155,7 @@ function buildTopEmbed(official = false) {
 	return new MessageEmbed()
 		.setColor(MEG.color)
 		.setTitle(`Leaderboard${official ? '' : ' (unofficial)'}`)
+		.setFooter(`Total: ${getTotal().count} dug by ${getTotal().accounts} accounts`)
 		.setThumbnail(MEG.logo)
 		.setDescription(getSortedList())
 }
