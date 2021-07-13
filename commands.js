@@ -4,7 +4,7 @@ const path = require('path');
 const Octokit = require("@octokit/core").Octokit;
 const octokit = new Octokit();
 const botversion = require('./package.json').version;
-const { getSortedList, getTotal, trueDate, commafy, formatBytes } = require('./utils');
+const { getSortedList, getSortedListAsString, getTotal, trueDate, commafy, formatBytes } = require('./utils');
 const MEG = require('./meg.json');
 
 const hardcode_whitelist = ['295974862646804480'];
@@ -36,6 +36,9 @@ module.exports = {
 		if (verifyUser(msg)) {
 			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 0) reply = 'Value must be 0 or higher!';
 			else {
+				let oldSorted = getSortedList();
+				let oldPreviousIndex = oldSorted.findIndex((player) => player.id == msg.author.id) + 1;
+
 				let scores = require('./scores.json');
 				let author = msg.author.id;
 				let player = scores.players.find((player) => player.id == author);
@@ -49,6 +52,29 @@ module.exports = {
 					count,
 					accounts: 1
 				});
+
+				try {
+					let newPreviousIndex = getSortedList().findIndex((player) => player.id == msg.author.id) + 1;
+					let newPrevious = getSortedList()[newPreviousIndex]
+					if (newPrevious.name != oldSorted[oldPreviousIndex].name) {
+						setTimeout(() => {
+							const LICK = `<a:lick:742502894216937606>`;
+							const LICK_DEV = `<a:lick:864325204666613790>`;
+							const EAT_MY_ASS = `https://cdn.discordapp.com/emojis/665771666214879265.gif`;
+							console.log('GET FUCKED!!');
+							msg.channel.send(`Get fucced ${LICK_DEV}<@${newPrevious.id}> *uWu*\n||Their score: \`${commafy(newPrevious.count)}\`||`)
+								.then(() => msg.channel.send(EAT_MY_ASS));
+						}, 1000);
+						// what the fuck is this
+						// lord help me
+						// i'm so sorry
+						// i've gone insane
+						// -tycrek, July 2021
+					}
+				}
+				catch (e) {
+					//console.log(e);
+				}
 
 				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
 				if (count.toString() != NaN.toString()) reply = `Set ${msg.author}'s netherrack count to \`${commafy(count)}\``;
@@ -154,10 +180,10 @@ module.exports = {
 function buildTopEmbed(official = false) {
 	return new MessageEmbed()
 		.setColor(MEG.color)
-		.setTitle(`Leaderboard${official ? '' : ' (unofficial)'}`)
+		.setTitle(`Leaderboard (Netherrack Mined)`)
 		.setFooter(`Total: ${getTotal().count} dug by ${getTotal().accounts} accounts`)
 		.setThumbnail(MEG.logo)
-		.setDescription(getSortedList())
+		.setDescription(getSortedListAsString())
 }
 
 function verifyUser(msg) {

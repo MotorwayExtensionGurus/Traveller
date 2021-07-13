@@ -1,9 +1,10 @@
 module.exports = {
-	getSortedList: () => {
-		let sorted = require('./scores.json').players.sort((a, b) => parseInt(b.count) - parseInt(a.count));
+	getSortedListAsString: () => {
+		let sorted = getSortedList();
 		return sorted.map((player) => `**${getShow(sorted, player)}:** ${player.name}: \`${commafy(player.count)} {${player.accounts}}\``).join('\n');
 		//return sorted.map((player) => `**${getShow(sorted, player)}:** <@${player.id}>: \`${commafy(player.count)} {${player.accounts}}\``).join('\n');
 	},
+	getSortedList,
 	getTotal: () => {
 		let c = a = 0;
 		require('./scores.json').players.forEach(({ count, accounts }) => (c += count, a += accounts))
@@ -17,6 +18,10 @@ module.exports = {
 	commafy,
 	divider: '--------------------------------',
 	formatBytes
+}
+
+function getSortedList() {
+	return require('./scores.json').players.sort((a, b) => parseInt(b.count) - parseInt(a.count))
 }
 
 function commafy(num) {
