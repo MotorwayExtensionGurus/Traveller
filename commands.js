@@ -62,7 +62,7 @@ module.exports = {
 							const LICK_DEV = `<a:lick:864325204666613790>`;
 							const EAT_MY_ASS = `https://cdn.discordapp.com/emojis/665771666214879265.gif`;
 							console.log('GET FUCKED!!');
-							msg.channel.send(`Get fucced ${LICK_DEV}<@${newPrevious.id}> *uWu*\n||Their score: \`${commafy(newPrevious.count)}\`||`)
+							msg.channel.send(`Get fucced ${LICK}<@${newPrevious.id}> *uWu*\n||Their score: \`${commafy(newPrevious.count)}\`||`)
 								.then(() => msg.channel.send(EAT_MY_ASS));
 						}, 1000);
 						// what the fuck is this
