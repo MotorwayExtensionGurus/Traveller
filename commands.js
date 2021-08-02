@@ -32,7 +32,7 @@ module.exports = {
 		return msg.channel.send(!counter || counter == 0 ? 'This user hasn\'t mined anything, what a pleb!' : `${target} has mined \`${commafy(counter.count)}\` netherrack using **${counter.accounts}** accounts`, { 'allowedMentions': { 'users': [] } });
 	},
 	setnetherrack: (msg, args) => {
-		let reply;
+		let reply = '';
 		if (verifyUser(msg)) {
 			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 0) reply = 'Value must be 0 or higher!';
 			else {
@@ -56,31 +56,21 @@ module.exports = {
 				try {
 					let newPreviousIndex = getSortedList().findIndex((player) => player.id == msg.author.id) + 1;
 					let newPrevious = getSortedList()[newPreviousIndex]
-					if (newPrevious.name != oldSorted[oldPreviousIndex].name) {
-						setTimeout(() => {
-							const LICK = `<a:lick:742502894216937606>`;
-							const LICK_DEV = `<a:lick:864325204666613790>`;
-							const EAT_MY_ASS = `https://cdn.discordapp.com/emojis/665771666214879265.gif`;
-							console.log('GET FUCKED!!');
-							msg.channel.send(`Get fucced ${LICK}<@${newPrevious.id}> *uWu*\n||Their score: \`${commafy(newPrevious.count)}\`||`)
-								.then(() => msg.channel.send(EAT_MY_ASS));
-						}, 1000);
-						// what the fuck is this
-						// lord help me
-						// i'm so sorry
-						// i've gone insane
-						// -tycrek, July 2021
-					}
+					if (newPrevious.name != oldSorted[oldPreviousIndex].name)
+						reply = `\n\nTake that, <@${newPrevious.id}>! ||Their score: \`${commafy(newPrevious.count)}\`||`;
 				}
-				catch (e) {
-					//console.log(e);
-				}
+				catch (e) { }
 
 				fs.writeJson(path.join(__dirname, 'scores.json'), scores, { spaces: '\t' })
-				if (count.toString() != NaN.toString()) reply = `Set ${msg.author}'s netherrack count to \`${commafy(count)}\``;
+				if (count.toString() != NaN.toString()) reply = `Set ${msg.author}'s netherrack count to \`${commafy(count)}\``.concat(reply);
 			}
 		} else reply = 'This command can only be ran by Diggers!';
-		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
+		msg.channel.send(new MessageEmbed()
+			.setTitle('Set Netherrack')
+			.setColor(MEG.color)
+			.setDescription(reply)
+			.setThumbnail(MEG.logo)
+			.setTimestamp(new Date()));
 	},
 	setaccounts: (msg, args) => {
 		let reply;
@@ -105,7 +95,11 @@ module.exports = {
 				if (count.toString() != NaN.toString()) reply = `Set ${msg.author}'s accounts to \`${commafy(count)}\``;
 			}
 		} else reply = 'This command can only be ran by Diggers!';
-		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
+		msg.channel.send(new MessageEmbed()
+			.setTitle('Set Accounts')
+			.setColor(MEG.color)
+			.setDescription(reply)
+			.setTimestamp(new Date()));
 	},
 	nickname: (msg, args) => {
 		let noArgs = !args;
@@ -130,9 +124,15 @@ module.exports = {
 				reply = `Set ${msg.author}'s nickname to \`${newName}\``;
 			}
 		} else reply = 'This command can only be ran by Diggers!';
-		msg.channel.send(reply, { 'allowedMentions': { 'users': [] } });
+		msg.channel.send(new MessageEmbed()
+			.setTitle('Set Nickname')
+			.setColor(MEG.color)
+			.setDescription(reply)
+			.setTimestamp(new Date()));
 	},
 	hwt: async (msg, args) => {
+		msg.channel.send('This command is outdated! Download Lambda Client for the new HWT!');
+		return;
 		if (args.length == 0)
 			octokit.request('GET /repos/{owner}/{repo}/releases', { owner: 'avanatiker', repo: 'client' })
 				.then(({ data }) => data[0])
@@ -199,5 +199,5 @@ const commandsList = [
 	`\`${MEG.prefix}setnetherrack\` - Set your own netherrack count`,
 	`\`${MEG.prefix}setaccounts\` - Set how many accounts contribute to your count`,
 	`\`${MEG.prefix}nickname\` - Set your leaderboard nickname`,
-	`\`${MEG.prefix}hwt\ - Grab info for the latest release of Highway Tools by <@295974862646804480>`
+	`\`${MEG.prefix}hwt\` - Grab info for the latest release of Highway Tools by <@295974862646804480>`
 ];
