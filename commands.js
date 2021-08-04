@@ -209,12 +209,16 @@ const DIGGER_RANKS = {
  * @param {number} score - Their current score
  */
 function applyRoles(member, score) {
-	return new Promise((resolve, reject) =>
-		member.roles.add(Object.entries(DIGGER_RANKS)
+	return new Promise((resolve, reject) => {
+		const roles = Object.entries(DIGGER_RANKS)
 			.filter(([rank,]) => score >= parseInt(rank))
-			.map(([, roleId]) => roleId).pop())
+			.map(([, roleId]) => roleId);
+		const addRole = roles.pop();
+
+		Promise.all([member.roles.add(addRole), member.roles.remove(roles)])
 			.then(resolve)
-			.catch(reject));
+			.catch(reject);
+	});
 }
 
 const commandsList = [
