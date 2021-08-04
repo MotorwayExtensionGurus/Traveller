@@ -1,4 +1,4 @@
-const MessageEmbed = require('discord.js').MessageEmbed;
+const { MessageEmbed, GuildMember } = require('discord.js');
 const fs = require('fs-extra');
 const path = require('path');
 const Octokit = require("@octokit/core").Octokit;
@@ -32,7 +32,7 @@ module.exports = {
 		return msg.channel.send(!counter || counter == 0 ? 'This user hasn\'t mined anything, what a pleb!' : `${target} has mined \`${commafy(counter.count)}\` netherrack using **${counter.accounts}** accounts`, { 'allowedMentions': { 'users': [] } });
 	},
 	setnetherrack: (msg, args) => {
-		let reply = '';
+		let reply = '', count;
 		if (verifyUser(msg)) {
 			if (!args || !args.toString().match(/\b([0-9]+)/) || parseInt(args.toString()) < 0) reply = 'Value must be 0 or higher!';
 			else {
@@ -42,7 +42,7 @@ module.exports = {
 				let scores = require('./scores.json');
 				let author = msg.author.id;
 				let player = scores.players.find((player) => player.id == author);
-				let count = parseInt(args.toString().replace(/,/g, ''));
+				count = parseInt(args.toString().replace(/,/g, ''));
 
 				if (count.toString() == NaN.toString()) reply = "fuck you";
 				else if (player) player.count = count;
@@ -70,7 +70,9 @@ module.exports = {
 			.setColor(MEG.color)
 			.setDescription(reply)
 			.setThumbnail(MEG.logo)
-			.setTimestamp(new Date()));
+			.setTimestamp(new Date()))
+			.then(() => applyRoles(msg.member, count))
+			.catch((err) => msg.channel.send(err));
 	},
 	setaccounts: (msg, args) => {
 		let reply;
@@ -188,6 +190,31 @@ function buildTopEmbed(official = false) {
 
 function verifyUser(msg) {
 	return msg.member.roles.cache.some((role) => role.name.includes('DIGGER') || role.name.includes('PROSPECTIVE')) || hardcode_whitelist.includes(msg.author.id);
+}
+
+const DIGGER_RANKS = {
+	2_000_000: '852217024276856913',
+	5_000_000: '852217861136318465',
+	10_000_000: '852218174736039946',
+	20_000_000: '852219382935584838',
+	50_000_000: '852220327848837182',
+	100_000_000: '852377027645931521',
+	150_000_000: '872511544175493213',
+	250_000_000: '872511864670670939',
+	500_000_000: '872513275521298452',
+};
+
+/**
+ * @param {GuildMember} member - The member to potentially add ranks to
+ * @param {number} score - Their current score
+ */
+function applyRoles(member, score) {
+	return new Promise((resolve, reject) =>
+		member.roles.add(Object.entries(DIGGER_RANKS)
+			.filter(([rank,]) => score >= parseInt(rank))
+			.map(([, roleId]) => roleId))
+			.then(resolve)
+			.catch(reject));
 }
 
 const commandsList = [
