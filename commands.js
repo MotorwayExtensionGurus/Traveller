@@ -212,7 +212,7 @@ function applyRoles(member, score) {
 	return new Promise((resolve, reject) =>
 		member.roles.add(Object.entries(DIGGER_RANKS)
 			.filter(([rank,]) => score >= parseInt(rank))
-			.map(([, roleId]) => roleId))
+			.map(([, roleId]) => roleId).pop())
 			.then(resolve)
 			.catch(reject));
 }
