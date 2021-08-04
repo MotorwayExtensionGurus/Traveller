@@ -7,6 +7,7 @@
 require('dotenv').config()
 
 // Imports
+const isProd = require('@tycrek/isprod')();
 const Discord = require('discord.js');
 const utils = require('./utils');
 const botversion = require('./package.json').version;
@@ -23,7 +24,7 @@ bot.on('ready', async () => {
 
 // Command processor
 bot.on('message', async (message) => {
-	if (!message.content.startsWith(MEG.prefix) || message.author.bot) return;
+	if (!message.content.startsWith(isProd ? MEG.prefix : '%') || message.author.bot) return;
 
 	const args = message.content.slice(MEG.prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();

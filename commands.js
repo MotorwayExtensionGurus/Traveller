@@ -215,7 +215,8 @@ function applyRoles(member, score) {
 			.map(([, roleId]) => roleId);
 		const addRole = roles.pop();
 
-		Promise.all([member.roles.add(addRole), member.roles.remove(roles)])
+		member.roles.remove(roles)
+			.then(() => member.roles.add(addRole))
 			.then(resolve)
 			.catch(reject);
 	});
