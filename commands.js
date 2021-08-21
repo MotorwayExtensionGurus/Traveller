@@ -176,6 +176,15 @@ module.exports = {
 				})
 				.catch(console.error);
 		}
+	},
+	smp: (msg, args) => {
+		msg.channel.send(new MessageEmbed()
+			.setTitle(`MEG's SMP`)
+			.setColor(MEG.color)
+			.setDescription(verifyUser(msg, (role) => role.id == '876892752607055922') ? fs.readFileSync('smp.md') : 'no')
+			.setThumbnail(MEG.logo)
+			.setTimestamp(new Date()))
+			.catch((err) => msg.channel.send(err))
 	}
 };
 
@@ -188,8 +197,8 @@ function buildTopEmbed(official = false) {
 		.setDescription(getSortedListAsString())
 }
 
-function verifyUser(msg) {
-	return msg.member.roles.cache.some((role) => role.name.includes('DIGGER') || role.name.includes('PROSPECTIVE')) || hardcode_whitelist.includes(msg.author.id);
+function verifyUser(msg, condition = (role) => role.name.includes('DIGGER') || role.name.includes('PROSPECTIVE')) {
+	return msg.member.roles.cache.some((role) => condition(role) || hardcode_whitelist.includes(msg.author.id));
 }
 
 const DIGGER_RANKS = {
