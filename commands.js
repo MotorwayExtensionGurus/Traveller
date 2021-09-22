@@ -7,8 +7,6 @@ const botversion = require('./package.json').version;
 const { getSortedList, getSortedListAsString, getTotal, trueDate, commafy, formatBytes } = require('./utils');
 const MEG = require('./meg.json');
 
-const hardcode_whitelist = ['295974862646804480'];
-
 module.exports = {
 	version: (msg) =>
 		msg.channel.send(new MessageEmbed()
@@ -197,8 +195,13 @@ function buildTopEmbed(official = false) {
 		.setDescription(getSortedListAsString())
 }
 
-function verifyUser(msg, condition = (role) => role.name.includes('DIGGER') || role.name.includes('PROSPECTIVE')) {
-	return msg.member.roles.cache.some((role) => condition(role) || hardcode_whitelist.includes(msg.author.id));
+const DIGGER_WHITELIST = [
+	'883963604351717407', // DIGGER role
+	'716573337383469107', // PROSPECTIVE role
+	'428418366831591424', // Tullybob (user)
+];
+function verifyUser(msg, condition = (role) => DIGGER_WHITELIST.includes(role.id)) {
+	return DIGGER_WHITELIST.includes(msg.author.id) || msg.member.roles.cache.some((role) => condition(role));
 }
 
 const DIGGER_RANKS = {
