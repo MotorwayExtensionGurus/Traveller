@@ -3,26 +3,44 @@
 		{
 			"id": "435284500831010839",
 			"name": "Justen",
-			"count": 909910791,
-			"accounts": 4
+			"count": 1970446303,
+			"accounts": 6
 		},
 		{
 			"id": "843214128217980959",
-			"name": "Hare_Hare_Yukai",
-			"count": 625244696,
-			"accounts": 5
+			"name": "Yukai",
+			"count": 1033214538,
+			"accounts": 7
 		},
 		{
 			"id": "350744245575090179",
 			"name": "harritaco",
-			"count": 588061000,
+			"count": 834000000,
 			"accounts": 3
+		},
+		{
+			"id": "719280317969596416",
+			"name": "Yikyu",
+			"count": 823953278,
+			"accounts": 6
+		},
+		{
+			"id": "198285420688048131",
+			"name": "Queen Kazma",
+			"count": 157901382,
+			"accounts": 1
 		},
 		{
 			"id": "219717388910723075",
 			"name": "reitano12",
-			"count": 135596758,
+			"count": 137455835,
 			"accounts": 2
+		},
+		{
+			"id": "661805967637348392",
+			"name": "Fiofri",
+			"count": 133259559,
+			"accounts": 1
 		},
 		{
 			"id": "654755624009072650",
@@ -39,26 +57,20 @@
 		{
 			"id": "424870550955884545",
 			"name": "Citadel",
-			"count": 112000000,
+			"count": 110000000,
 			"accounts": 2
 		},
 		{
 			"id": "329843671769808897",
 			"name": "Yesnik",
-			"count": 90000000,
+			"count": 101541170,
 			"accounts": 1
 		},
 		{
-			"id": "198285420688048131",
-			"name": "Queen Kazma",
-			"count": 87076252,
-			"accounts": 1
-		},
-		{
-			"id": "661805967637348392",
-			"name": "Fiofri",
-			"count": 85436505,
-			"accounts": 1
+			"id": "394416128086245376",
+			"name": "Free Memes",
+			"count": 95000000,
+			"accounts": 2
 		},
 		{
 			"id": "122803763466600448",
@@ -73,15 +85,27 @@
 			"accounts": 1
 		},
 		{
-			"id": "719280317969596416",
-			"name": "Yikyu",
-			"count": 62217601,
-			"accounts": 3
+			"id": "604913092127621152",
+			"name": "Cap with a K",
+			"count": 70000000,
+			"accounts": 1
+		},
+		{
+			"id": "350417838999076894",
+			"name": "frencheagle",
+			"count": 69696969,
+			"accounts": 1
 		},
 		{
 			"id": "324679696182673408",
 			"name": "tycrek",
-			"count": 58049308,
+			"count": 60500000,
+			"accounts": 1
+		},
+		{
+			"id": "365826562790129665",
+			"name": "entropy_d",
+			"count": 54809585,
 			"accounts": 1
 		},
 		{
@@ -91,9 +115,33 @@
 			"accounts": 2
 		},
 		{
+			"id": "173057275626389505",
+			"name": "Orange",
+			"count": 51143026,
+			"accounts": 1
+		},
+		{
 			"id": "584363189890711562",
 			"name": "Aven",
 			"count": 43931972,
+			"accounts": 1
+		},
+		{
+			"id": "904294331450527745",
+			"name": "BloodyNoah",
+			"count": 43000000,
+			"accounts": 1
+		},
+		{
+			"id": "689157460329496740",
+			"name": "eternal_fin",
+			"count": 43000000,
+			"accounts": 1
+		},
+		{
+			"id": "506142138279657472",
+			"name": "megamasterbloc_86",
+			"count": 42700000,
 			"accounts": 1
 		},
 		{
@@ -103,9 +151,9 @@
 			"accounts": 1
 		},
 		{
-			"id": "604913092127621152",
-			"name": "Cap with a K",
-			"count": 31000000,
+			"id": "940612557662728212",
+			"name": "katmite",
+			"count": 33000000,
 			"accounts": 1
 		},
 		{
@@ -133,9 +181,9 @@
 			"accounts": 3
 		},
 		{
-			"id": "173057275626389505",
-			"name": "Orange",
-			"count": 15500000,
+			"id": "150471760876142592",
+			"name": "goodbobonline",
+			"count": 16115000,
 			"accounts": 1
 		},
 		{
@@ -143,6 +191,12 @@
 			"name": "Jude",
 			"count": 14544000,
 			"accounts": 2
+		},
+		{
+			"id": "159552173070483456",
+			"name": "Alligaytour",
+			"count": 13000000,
+			"accounts": 1
 		},
 		{
 			"id": "605511847692599297",
@@ -157,15 +211,9 @@
 			"accounts": 2
 		},
 		{
-			"id": "506142138279657472",
-			"name": "megamasterbloc_86",
-			"count": 8060255,
-			"accounts": 1
-		},
-		{
-			"id": "350417838999076894",
-			"name": "frencheagle",
-			"count": 8000000,
+			"id": "280416092197748746",
+			"name": "Dane_Jah",
+			"count": 8094885,
 			"accounts": 1
 		},
 		{
@@ -205,8 +253,8 @@
 			"accounts": 1
 		},
 		{
-			"id": "904294331450527745",
-			"name": "BloodyNoah3",
+			"id": "483056864355942405",
+			"name": "GUMI",
 			"count": 1,
 			"accounts": 1
 		}
