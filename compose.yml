@@ -1,0 +1,8 @@
+services:
+  traveller:
+    build: .
+    container_name: traveller
+    restart: unless-stopped
+    tty: true
+    environment:
+      - NODE_ENV=production
